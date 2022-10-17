@@ -1,42 +1,27 @@
 import React, {FC} from 'react';
-import check from "../../assets/img/Shape.svg";
+import TransferItem from "./TransferItem";
+import {useDispatch, useSelector} from "react-redux";
+import {filtersTransfer, selectFilterTransfers, setTransfers} from "../../redux/slices/filterSlice";
 
 const Filters: FC = () => {
+    const dispatch = useDispatch()
+    const transfers = useSelector(selectFilterTransfers)
+
     return (
         <section className="filters">
             <div className="filters__transfer transfer">
                 <h4>Количество пересадок</h4>
                 <ul className="transfer__list">
-                    <li className="transfer__item">
-                        <div className="transfer__checkbox">
-                            <img src={check} alt=""/>
-                        </div>
-                        <span>Все</span>
-                    </li>
-                    <li className="transfer__item">
-                        <div className="transfer__checkbox">
-                            <img src="" alt=""/>
-                        </div>
-                        <span>Без пересадок</span>
-                    </li>
-                    <li className="transfer__item">
-                        <div className="transfer__checkbox">
-                            <img src="" alt=""/>
-                        </div>
-                        <span>1 пересадка</span>
-                    </li>
-                    <li className="transfer__item">
-                        <div className="transfer__checkbox">
-                            <img src="" alt=""/>
-                        </div>
-                        <span>2 пересадка</span>
-                    </li>
-                    <li className="transfer__item">
-                        <div className="transfer__checkbox">
-                            <img src="" alt=""/>
-                        </div>
-                        <span>3 пересадка</span>
-                    </li>
+                    {
+                        filtersTransfer.map((item, index) => {
+                            return <TransferItem
+                                active={transfers.includes(item.value)}
+                                key={index}
+                                {...item}
+                                setTransfers={(value: number) => dispatch(setTransfers(value))}
+                            />
+                        })
+                    }
                 </ul>
             </div>
         </section>

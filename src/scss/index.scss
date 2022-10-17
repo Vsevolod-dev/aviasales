@@ -3,6 +3,7 @@
 .App {
     font-family: "Open Sans", sans-serif;
     background-color: #F3F7FA;
+    font-weight: 600;
 }
 
 .container {
@@ -22,15 +23,14 @@
     justify-content: center;
 }
 
-.transfer__filters {
+.filters__transfer {
     padding: 20px 0;
     background: #FFFFFF;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     width: 232px;
 
-    &:h4 {
-        font-weight: 600;
+    h4 {
         font-size: 12px;
         line-height: 12px;
         letter-spacing: 0.5px;
@@ -42,25 +42,23 @@
 }
 
 .transfer__item {
+    height: 40px;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
-}
 
-.transfer__item:hover {
-    cursor: pointer;
-    background-color: #F1FCFF;
-}
+    &:hover {
+        cursor: pointer;
+        background-color: #F1FCFF;
+    }
 
-.transfer__checkbox {
-    margin-right: 10px;
-}
-
-.transfer__item span {
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 20px;
-    color: #4A4A4A;
+    span {
+        position: absolute;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 20px;
+        color: #4A4A4A;
+    }
 }
 
 .transfer__checkbox {
@@ -69,43 +67,45 @@
     border: 1px solid #9ABBCE;
     border-radius: 2px;
     display: inline-block;
+
+    margin-right: 10px;
+
+    img {
+        margin: 4px 1px;
+    }
 }
 
-.transfer__checkbox img {
-    margin: 4px 1px;
-}
-
-.price__filters {
+.tickets__order {
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.filters__item {
-    padding: 15px 22px;
+.price__item {
+    font-weight: 600;
+    padding: 15px 24px;
     border: 1px solid #DFE5EC;
     background: #FFFFFF;
 
-    font-weight: 600;
     font-size: 12px;
     line-height: 20px;
     text-align: center;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     color: #4A4A4A;
-}
 
-.filters__item:first-child {
-    border-bottom-left-radius: 6px;
-    border-top-left-radius: 6px;
-}
+    &:first-child {
+        border-bottom-left-radius: 6px;
+        border-top-left-radius: 6px;
+    }
 
-.filters__item:last-child {
-    border-bottom-right-radius: 6px;
-    border-top-right-radius: 6px;
-}
-
-.filters__item.active {
-    background: #2196F3;
-    color: white;
+    &:last-child {
+        border-bottom-right-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+    &.active {
+        background: #2196F3;
+        color: white;
+    }
 }
 
 .tickets__item {
@@ -141,7 +141,6 @@
 }
 
 .block__name {
-    font-weight: 600;
     font-size: 12px;
     line-height: 18px;
     letter-spacing: 0.5px;
@@ -150,7 +149,6 @@
 }
 
 .block__content {
-    font-weight: 600;
     font-size: 14px;
     line-height: 21px;
     color: #4A4A4A;
@@ -162,7 +160,6 @@
     width: 502px;
     height: 50px;
 
-    font-weight: 600;
     font-size: 12px;
     line-height: 20px;
     text-align: center;
