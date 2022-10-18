@@ -19,7 +19,7 @@ const Tickets: FC = () => {
 
         const fetchTickets = async (searchId: string) => {
             let responseTickets = await axios(`https://front-test.dev.aviasales.ru/tickets?searchId=${searchId}`)
-            setTickets(responseTickets.data.tickets)
+            setTickets(responseTickets.data.tickets.slice(0, 5))
         }
 
         const fetchData = async () => {
@@ -40,17 +40,30 @@ const Tickets: FC = () => {
 
     }, [])
 
+    function filterAndSort(tickets: TicketsItemType[]) {
+        return tickets
+            .filter((ticket: TicketsItemType) => filterTransfer.includes(ticket.segments[0].stops.length))
+            .sort((a,b) => {
+                switch (orderPrice) {
+                    case 'cheapest':
+                        return a.price - b.price
+                    case 'fastest':
+                        return a.segments[0].duration - b.segments[0].duration
+                    case 'optimal':
+                        return (a.price / a.segments[0].duration) - (b.price / b.segments[0].duration)
+                    default:
+                        return 1
+                }
+            })
+    }
+
     return (
         <section className="tickets">
             <TicketsOrder/>
             <ul className="tickets__list">
                 {
                     tickets.length
-                        ? tickets.map((ticket, index) => {
-                                if (index < 5 && filterTransfer.includes(ticket.segments[0].stops.length)) {
-                                    return <TicketsItem key={index} {...ticket} />
-                                }
-                            })
+                        ? filterAndSort(tickets).map((ticket, index) => <TicketsItem key={index} {...ticket} />)
                         : <div>Loading...</div>
                 }
             </ul>

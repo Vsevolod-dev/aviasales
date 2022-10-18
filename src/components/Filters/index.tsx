@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, UIEventHandler, useRef} from 'react';
 import TransferItem from "./TransferItem";
 import {useDispatch, useSelector} from "react-redux";
 import {filtersTransfer, selectFilterTransfers, setTransfers} from "../../redux/slices/filterSlice";

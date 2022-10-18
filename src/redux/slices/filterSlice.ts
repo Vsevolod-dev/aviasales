@@ -22,7 +22,7 @@ interface FilterSliceState {
 
 const initialState: FilterSliceState = {
     transfers: filtersTransfer.map(i => i.value),
-    orderPrice: 'fastest'
+    orderPrice: 'cheapest'
 }
 
 export const filterSlice = createSlice({

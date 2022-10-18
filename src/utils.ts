@@ -30,3 +30,15 @@ export function dateNormalize(date: string, duration: number) {
 
     return `${begin} – ${end}`
 }
+
+window.addEventListener('scroll', (e) => {
+    const filtersTransfer = document.querySelector('.filters__transfer') as HTMLElement
+
+    if (window.scrollY > 200) {
+        filtersTransfer.style.position = 'fixed'
+        filtersTransfer.style.top = '25px'
+    } else {
+        filtersTransfer.style.position = ''
+        filtersTransfer.style.top = ''
+    }
+})
