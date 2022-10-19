@@ -1,44 +1,27 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import TicketsOrder from "./Orders";
 import TicketsItem from "./TicketsItem";
-import axios from "axios";
 import {TicketsItemType} from '../../@types/@tickets'
 import {useSelector} from "react-redux";
 import {selectFilterOrderPrice, selectFilterTransfers} from "../../redux/slices/filterSlice";
+import {fetchTickets, getSearchId} from "../../redux/slices/ticketsSlice";
+import {RootState, useAppDispatch} from "../../redux/store";
 
 const Tickets: FC = () => {
 
-    const [tickets, setTickets] = useState<TicketsItemType[]>([]);
-    const [searchId, setSearchId] = useState('');
+    const dispatch = useAppDispatch()
+    const {searchId, tickets} = useSelector((state: RootState) => state.tickets)
 
     const orderPrice = useSelector(selectFilterOrderPrice)
     const filterTransfer = useSelector(selectFilterTransfers)
 
+    useEffect(() => {
+        dispatch(getSearchId())
+    }, [])
 
     useEffect(() => {
-
-        const fetchTickets = async (searchId: string) => {
-            let responseTickets = await axios(`https://front-test.dev.aviasales.ru/tickets?searchId=${searchId}`)
-            setTickets(responseTickets.data.tickets.slice(0, 5))
-        }
-
-        const fetchData = async () => {
-            let responseSearchId = await axios('https://front-test.dev.aviasales.ru/search')
-            await setSearchId(responseSearchId.data.searchId)
-
-            fetchTickets(responseSearchId.data.searchId)
-                .catch(e => {
-                    console.error(e)
-                    setTimeout(() => fetchTickets(responseSearchId.data.searchId), 1000)
-                })
-        }
-
-        fetchData()
-            .catch(e => {
-                console.error(e)
-            })
-
-    }, [])
+        if (searchId !== '') dispatch(fetchTickets(searchId))
+    }, [searchId])
 
     function filterAndSort(tickets: TicketsItemType[]) {
         return tickets
